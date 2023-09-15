@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/*@tailwind base;*/
+#EasyExtensionTemplate * {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.disable-number-buttons input[type=number]::-webkit-inner-spin-button,
+.disable-number-buttonsinput[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.smooth-theme-transition,
+.smooth-theme-transition h2,
+.smooth-theme-transition button,
+.smooth-theme-transition button svg,
+.smooth-theme-transition fieldset,
+.smooth-theme-transition label {
+    transition-property: color, background-color, border-color, border !important;
+    transition-duration: 200ms !important;
+    transition-timing-function: ease-in-out !important;
+}
+
+@tailwind components;
+
+@tailwind utilities;

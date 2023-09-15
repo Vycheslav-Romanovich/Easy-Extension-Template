@@ -1,0 +1,11 @@
+{
+  "locale_code": {
+    "message": "en"
+  },
+  "manifest_name": {
+    "message": "Easy Extension Template"
+  },
+  "manifest_description": {
+    "message": "This is a template for browser extension"
+  }
+}

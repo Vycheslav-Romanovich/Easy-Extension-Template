@@ -1,0 +1,11 @@
+{
+  "locale_code": {
+    "message": "ru"
+  },
+  "manifest_name": {
+    "message": "Easy Extension Template"
+  },
+  "manifest_description": {
+    "message": "Это template для расширения"
+  }
+}
