@@ -1,8 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../background/store/reducers'
 import 'react-toastify/dist/ReactToastify.css'
-import { setLanguage } from '../common/store/settingsActions'
+import { RootState } from '../background/store/slices'
+import Button from '../common/components/button/button'
+import strings from '../../locales/localisation'
+import { proxyActions } from '../background/store/proxyActions'
 
 const App = () => {
   const language = useSelector<RootState, string>((state) => state.settings.language)
@@ -13,23 +15,19 @@ const App = () => {
       <h1 className='text-lg font-bold'>PopUp page</h1>
 
       <div className='flex justify-between items-center w-1/3'>
-        <span>Ui language</span>
+        <span>{strings.settings.language}</span>
         <span>{language}</span>
       </div>
 
-      <div className='flex justify-between items-center w-1/3'>
-        <button onClick={() => {
-          dispatch(setLanguage('en'))
+      <div className='flex justify-between items-center w-1/3 gap-4'>
+        <Button text='English' onClick={() => {
+          dispatch(proxyActions.settings.setLanguage({ language: 'en' }))
         }}
-        >
-          English
-        </button>
-        <button onClick={() => {
-          dispatch(setLanguage('ru'))
+        />
+        <Button text='Russian' onClick={() => {
+          dispatch(proxyActions.settings.setLanguage({ language: 'ru' }))
         }}
-        >
-          Russian
-        </button>
+        />
       </div>
     </div>
   )

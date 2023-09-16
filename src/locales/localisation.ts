@@ -1,10 +1,10 @@
 import LocalizedStrings from 'react-localization'
 // @ts-ignore
 import { createUIStore } from 'redux-webext'
-import { RootState } from '../pages/background/store/reducers'
 
 import { ru } from './languages/ru/ru'
 import { en } from './languages/en/en'
+import { RootState } from '../pages/background/store/slices'
 
 const strings = new LocalizedStrings({
   en,

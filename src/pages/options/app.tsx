@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../background/store/reducers'
 import 'react-toastify/dist/ReactToastify.css'
+import { RootState } from '../background/store/slices'
 
 const App = () => {
   const language = useSelector<RootState, string>((state) => state.settings.language)
