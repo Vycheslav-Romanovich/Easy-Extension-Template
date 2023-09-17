@@ -37,7 +37,7 @@ const App = () => {
 
       <div className='flex justify-between items-center w-1/3 gap-4'>
         <span>{strings.settings.theme}</span>
-        <select className='px-2 bg-white dark:bg-gray-700 border rounded' value={darkMode} onChange={handleThemeChange}>
+        <select className='px-2 h-6 bg-white dark:bg-gray-700 border rounded' value={darkMode} onChange={handleThemeChange}>
           <option value={EDarkMode.AlwaysLight}>Light</option>
           <option value={EDarkMode.AsSystem}>System</option>
           <option value={EDarkMode.AlwaysDark}>Dark</option>

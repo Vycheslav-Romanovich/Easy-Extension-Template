@@ -119,12 +119,15 @@ You can't easily use Firebase in extensions with manifest v3 because background 
 I would stick to redirecting user to your webstie where they can log in,
 using third party provider or your own auth api and than passing JWT to extension from there.
 
+Also, by using website for authentication,
+you can reliably track conversions with GoogleAnalytics, Amplitude or anything else.
+
 ### Analytics
 
 Google Analytics
 If you want to use Google Analytics, I would recommend you to consider using amplitude,
 because you will have to jump through hoops in order to only make it work.
-User training is not reliable, which most likely will lead to duplication of users in analytics.
+User tracking is not reliable, which most likely will lead to duplication of users in analytics.
 
 Amplitude on the other hand is perfect for even small production use
 (Currently it's free for applications with under 100 000 MAU).
