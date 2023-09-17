@@ -1,5 +1,7 @@
 # Easy Extension Template
 
+This is a template for browser extension with React Tailwind CSS and manifest v3.
+
 [Figma template](https://www.figma.com/file/oGLtIgfsafbHWXM8V7lXbM/Easy-Extension-Template?type=design&node-id=0%3A1&mode=design&t=1mbXNqNGS6YB2hAP-1) for extension icon, promo images and screenshots for Chrome and Edge store with proper sizes.
 
 ## Primary features
@@ -113,8 +115,17 @@ Update urls for uninstall survey to your own Google Form or custom website url a
 My recommendation on implementing those features.
 
 ### Authentication
-website with login
+You can't easily use Firebase in extensions with manifest v3 because background script runs in service worker.
+I would stick to redirecting user to your webstie where they can log in,
+using third party provider or your own auth api and than passing JWT to extension from there.
 
 ### Analytics
 
-Amplitude over Google Analytics
+Google Analytics
+If you want to use Google Analytics, I would recommend you to consider using amplitude,
+because you will have to jump through hoops in order to only make it work.
+User training is not reliable, which most likely will lead to duplication of users in analytics.
+
+Amplitude on the other hand is perfect for even small production use
+(Currently it's free for applications with under 100 000 MAU).
+It's very reliable.
