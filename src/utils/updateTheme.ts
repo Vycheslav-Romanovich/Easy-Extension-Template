@@ -1,31 +1,31 @@
-import { DarkModeType } from '../constants/types'
+import { EDarkMode } from '../constants/types'
 
-export const updateTheme = (extensionTheme?: DarkModeType) => {
+export const updateTheme = (extensionTheme?: EDarkMode) => {
   const bodyEl = document.body
   const root = document.getElementById('root')
 
   if (!bodyEl || !root) return
 
-  if (extensionTheme === DarkModeType.asSystem) extensionTheme = chooseTheme()
-  if (extensionTheme === DarkModeType.alwaysLight) {
+  if (extensionTheme === EDarkMode.AsSystem) extensionTheme = chooseTheme()
+  if (extensionTheme === EDarkMode.AlwaysLight) {
     bodyEl.style.backgroundColor = '#FCFCFC'
-    root.className = 'light'
+    root.className = EDarkMode.AlwaysLight
   }
 
-  if (extensionTheme === DarkModeType.alwaysDark) {
+  if (extensionTheme === EDarkMode.AlwaysDark) {
     bodyEl.style.backgroundColor = '#181818'
-    root.className = 'dark'
+    root.className = EDarkMode.AlwaysDark
   }
 }
 
-export const chooseTheme = (): DarkModeType => {
+export const chooseTheme = (): EDarkMode => {
   const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
   let extensionTheme = null
 
   if (darkThemeMq.matches) {
-    extensionTheme = DarkModeType.alwaysDark
+    extensionTheme = EDarkMode.AlwaysDark
   } else {
-    extensionTheme = DarkModeType.alwaysLight
+    extensionTheme = EDarkMode.AlwaysLight
   }
 
   return extensionTheme

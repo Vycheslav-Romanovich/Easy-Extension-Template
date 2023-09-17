@@ -1,9 +1,9 @@
-import { DarkModeType } from '../../../../constants/types'
+import { EDarkMode } from '../../../../constants/types'
 import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
   language: chrome.i18n.getMessage('locale_code') ?? 'en',
-  darkMode: DarkModeType.asSystem as DarkModeType,
+  darkMode: EDarkMode.AsSystem as EDarkMode,
 };
 
 export const settingsSlice = createSlice({

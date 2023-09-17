@@ -3,10 +3,8 @@ import strings from '../locales/localisation'
 export const setUninstallURL = () => {
   const lang: string = strings.getLanguage()
   const feedbackForms: any = {
-    en: 'https://forms.gle/o2KkQR6ANVcfpb3GA',
-    ru: 'https://forms.gle/kEfe8NsaMi1KSdpR6',
-    uk: 'https://forms.gle/kEfe8NsaMi1KSdpR6',
-    kz: 'https://forms.gle/kEfe8NsaMi1KSdpR6',
+    en: 'https://forms.gle/Jm5USXNpHu9SjHQy6',
+    ru: 'https://forms.gle/Jm5USXNpHu9SjHQy6',
   }
 
   let formUrl = feedbackForms['en']

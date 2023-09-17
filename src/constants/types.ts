@@ -1,5 +1,5 @@
-export enum DarkModeType {
-  alwaysDark = 'dark',
-  alwaysLight = 'light',
-  asSystem = 'auto',
+export enum EDarkMode {
+  AlwaysDark = 'dark',
+  AlwaysLight = 'light',
+  AsSystem = 'auto',
 }

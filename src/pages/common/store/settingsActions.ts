@@ -1,5 +1,5 @@
 import { SET_DARK_MODE, SET_LANGUAGE } from '../../../constants/constants'
-import { DarkModeType } from '../../../constants/types'
+import { EDarkMode } from '../../../constants/types'
 
 export function setLanguage(language: string) {
   return {
@@ -8,7 +8,7 @@ export function setLanguage(language: string) {
   }
 }
 
-export function setDarkMode(darkMode: DarkModeType) {
+export function setDarkMode(darkMode: EDarkMode) {
   return {
     type: SET_DARK_MODE,
     darkMode,
