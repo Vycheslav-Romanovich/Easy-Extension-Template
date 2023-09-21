@@ -14,6 +14,12 @@ This is a template for browser extension with React Tailwind CSS and manifest v3
 - Auto refresh on changes in code
 - Uninstall survey
 
+## ToDo
+- [ ] Unit tests
+- [ ] E2E tests
+- [ ] CI/CD
+
+
 ## State management
 
 ### Key libraries
@@ -24,8 +30,8 @@ This is a template for browser extension with React Tailwind CSS and manifest v3
 
 ### What is Redux WebExt?
 
-redux-webext is a toolkit designed to bring Redux's state management capabilities into the world of web extensions. It
-simplifies communication and state synchronization across various extension scripts (e.g., background, content, and
+Redux-webext is a toolkit designed to bring Redux's state management capabilities into the world of web extensions.
+It simplifies communication and state synchronization across various extension scripts (e.g., background, content, and
 popup scripts).
 
 <img src="https://cloud.githubusercontent.com/assets/1555792/19413725/21031a42-9336-11e6-85ce-d5dc63104936.png" width="400">
@@ -42,7 +48,7 @@ Selecting redux-webext for web extension template was driven by the following ke
 
 ### Custom Enhancements
 
-To better tailor redux-webext, there are a couple of customisations:
+To better tailor redux-webext, there are a couple of customizations:
 
 #### getActionsMapping
 
@@ -109,15 +115,15 @@ To update the current theme, dispatch this action.
 
 I would recommend to set uninstall url only for suers who have used your extension for at least a couple of hours.
 
-Update urls for uninstall survey to your own Google Form or custom website url at `src/utils/uninstallUrl`
+Update urls for an uninstall survey to your own Google Form or custom website url at `src/utils/uninstallUrl`
 
 ## Out of scope
 My recommendation on implementing those features.
 
 ### Authentication
-You can't easily use Firebase in extensions with manifest v3 because background script runs in service worker.
-I would stick to redirecting user to your webstie where they can log in,
-using third party provider or your own auth api and than passing JWT to extension from there.
+You can't easily use Firebase in extensions with manifest v3 because a background script runs in service worker.
+I would stick to redirecting user to your website where they can log in,
+using third party provider or your own auth api and then passing JWT to an extension from there.
 
 Also, by using website for authentication,
 you can reliably track conversions with GoogleAnalytics, Amplitude or anything else.
