@@ -2,3 +2,4 @@ node_modules
 extension/dist
 .idea
 yarn-error.log
+/coverage/
