@@ -2,7 +2,8 @@
 
 This is a template for browser extension with React Tailwind CSS and manifest v3.
 
-[Figma template](https://www.figma.com/file/oGLtIgfsafbHWXM8V7lXbM/Easy-Extension-Template?type=design&node-id=0%3A1&mode=design&t=1mbXNqNGS6YB2hAP-1) for extension icon, promo images and screenshots for Chrome and Edge store with proper sizes.
+[Figma template](https://www.figma.com/file/oGLtIgfsafbHWXM8V7lXbM/Easy-Extension-Template?type=design&node-id=0%3A1&mode=design&t=1mbXNqNGS6YB2hAP-1)
+for extension icon, promo images and screenshots for Chrome and Edge store with proper sizes.
 
 ## Primary features
 
@@ -15,10 +16,10 @@ This is a template for browser extension with React Tailwind CSS and manifest v3
 - Uninstall survey
 
 ## ToDo
-- [ ] Unit tests
+
+- [x] Unit tests
 - [ ] E2E tests
 - [ ] CI/CD
-
 
 ## State management
 
@@ -46,26 +47,57 @@ Selecting redux-webext for web extension template was driven by the following ke
 4. **Middleware Support**: Allows incorporation of popular tools like redux-thunk.
 5. **Broad Compatibility**: Works smoothly across Chrome, Firefox, and Edge without major adjustments.
 
+### State Migration Issue and Solution with Redux Persist
+
+⚠️ Introducing new keys to reducers will desynchronize the client's local storage with the rootReducer, leading to
+runtime
+errors.
+This can be resolved by using Redux Persist's migration strategy.
+
+1. **Implement Migration**:
+   Define a migration function to update the persisted state with the new keys. This
+   file `src/pages/background/store/migrations.ts`
+2. **Increment store version**:
+   Increment the `version` in your persist configuration. This file `src/pages/background/store/store.ts`
+
+```typescript
+const migrations = {
+   // Example of migration
+   1: (state: any) => {
+      return {
+         ...state,
+         settings: {
+            ...state.settings,
+            newSetting: true,
+         },
+      }
+   },
+}
+
+export default migrations
+```
+
+By following this migration strategy, you maintain state consistency with your rootReducer, preventing potential runtime
+errors.
+
+[Read more on this topic (Medium)](https://medium.com/free-code-camp/how-to-use-redux-persist-when-migrating-your-states-a5dee16b5ead)
+
 ### Custom Enhancements
 
 To better tailor redux-webext, there are a couple of customizations:
 
-#### getActionsMapping
+1. **getActionsMapping**
+   - **Purpose**: Automatically get all actions from all slices, then create config for redux
+     WebExt. [Default way of doing that.](https://www.npmjs.com/package/redux-webext#:~:text=INCREMENT_UI_COUNTER%3A%C2%A0incrementUICounter%2C)
+   - **Benefits**: Enhanced developer experience.
 
-**Purpose**: Automatically get all actions from all slices, then create config for redux
-WebExt. [Default way of doing that.](https://www.npmjs.com/package/redux-webext#:~:text=INCREMENT_UI_COUNTER%3A%C2%A0incrementUICounter%2C)
-
-**Benefits**: Enhanced developer experience.
-
-#### getProxyActions
-
-**Purpose**: Automatically get all actions from all slices, then generate proxy actions that can be dispatched in a
-React component (e.g., content, options, and
-popup).
-
-**Benefits**: Enhanced developer experience.
-
-**Downsides**: Lack of typescript support for this proxy actions. Basically payload has a type any.
+2. **getProxyActions**
+   - **Purpose**: Automatically get all actions from all slices, then generate proxy actions that can be dispatched in
+     a
+     React component (e.g., content, options, and
+     popup).
+   - **Benefits**: Enhanced developer experience.
+   - **Downsides**: Lack of typescript support for this proxy actions. Basically payload has a type any.
 
 ## Localization
 
@@ -84,11 +116,11 @@ Import `strings` from `src/locaales/localisation.ts`
 ### How to add new locale
 
 1. Update `extension/_locales`
-    1. There is localization for extension name and description. These are locales that will be visible in Chrome Store.
+   - There is localization for extension name and description. These are locales that will be visible in Chrome Store.
 2. Update `src/locales/languages`
-    1. There is actual localization for the app
+   - There is actual localization for the app
 3. Update `supportedLanguages` in `src/constants/supportedLangauges`
-    1. You can use this object to populate language dropdown in settings
+   - You can use this object to populate language dropdown in settings
 
 ## Styles
 
@@ -118,9 +150,11 @@ I would recommend to set uninstall url only for suers who have used your extensi
 Update urls for an uninstall survey to your own Google Form or custom website url at `src/utils/uninstallUrl`
 
 ## Out of scope
+
 My recommendation on implementing those features.
 
 ### Authentication
+
 You can't easily use Firebase in extensions with manifest v3 because a background script runs in service worker.
 I would stick to redirecting user to your website where they can log in,
 using third party provider or your own auth api and then passing JWT to an extension from there.
