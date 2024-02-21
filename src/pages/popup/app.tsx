@@ -23,7 +23,7 @@ const App = () => {
   }
 
   return (
-    <div className='smooth-theme-transition w-full h-full p-2 bg-white dark:bg-black text-black dark:text-white'>
+    <div className='min-w-[300px] min-h-[300px] smooth-theme-transition w-full h-full p-2 bg-white dark:bg-black text-black dark:text-white'>
       <h1 className='text-lg font-bold'>PopUp page</h1>
 
       <div className='flex justify-between items-center w-1/3'>

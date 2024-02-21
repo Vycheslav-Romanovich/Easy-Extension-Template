@@ -72,10 +72,6 @@ let ExtensionConfig = Object.assign({}, config, {
         to: __dirname + '/extension/dist/popup.html',
       },
       {
-        from: './background/bgWrapper.js',
-        to: __dirname + '/extension/dist/bgWrapper.js',
-      },
-      {
         from: './popup/index.css',
         to: __dirname + '/extension/dist/popup.css',
       },
@@ -98,6 +94,14 @@ let ExtensionConfig = Object.assign({}, config, {
       {
         from: '../assets/',
         to: __dirname + '/extension/dist/assets/',
+      },
+      {
+        from: '../_locales/',
+        to: __dirname + '/extension/dist/_locales/',
+      },
+      {
+        from: '../manifest.json',
+        to: __dirname + '/extension/dist/manifest.json',
       },
     ]),
   ],

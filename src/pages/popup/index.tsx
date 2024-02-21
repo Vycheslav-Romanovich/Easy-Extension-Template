@@ -1,20 +1,20 @@
 // @ts-ignore
 import { createUIStore } from 'redux-webext'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './app'
 
 async function initApp() {
   const store = await createUIStore()
+  const container = document.getElementById('root')
+  // @ts-ignore
+  const root = createRoot(container)
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <div className='w-[500px] h-[400px]'>
-        <App />
-      </div>
-    </Provider>,
-    document.getElementById('root'),
+  root.render(
+    <Provider store={store}>     
+        <App />      
+    </Provider>
   )
 }
 

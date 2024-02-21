@@ -7,28 +7,32 @@
   "description": "__MSG_manifest_description__",
   "default_locale": "en",
   "icons": {
-    "128": "./dist/assets/icons/icon128.png"
+    "128": "./assets/icons/icon128.png"
   },
   "action": {
-    "default_popup": "./dist/popup.html",
+    "default_popup": "./popup.html",
     "default_title": "Easy Extension Template",
-    "default_icon": "./dist/assets/icons/icon.png"
+    "default_icon": "./assets/icons/icon.png"
   },
   "background": {
-    "service_worker": "dist/bgWrapper.js"
+    "service_worker": "./background.dist.js",
+    "type": "module"
   },
-  "options_page": "dist/options.html",
+  "options_page": "./options.html",
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/options.html"
+        "./options.html"
       ],
       "matches": [],
       "extension_ids": []
     }
   ],
   "permissions": [
-    "storage"
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
   ],
   "commands": {
     "_execute_action": {
