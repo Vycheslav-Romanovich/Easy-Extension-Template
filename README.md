@@ -155,12 +155,9 @@ My recommendation on implementing those features.
 
 ### Authentication
 
-You can't easily use Firebase in extensions with manifest v3 because a background script runs in service worker.
-I would stick to redirecting user to your website where they can log in,
-using third party provider or your own auth api and then passing JWT to an extension from there.
+`include firebase v9`
 
-Also, by using website for authentication,
-you can reliably track conversions with GoogleAnalytics, Amplitude or anything else.
+Use website for SignUp and create on backend custome token firebase
 
 ### Analytics
 
