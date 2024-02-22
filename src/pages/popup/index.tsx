@@ -1,6 +1,7 @@
 // @ts-ignore
 import { createUIStore } from 'redux-webext'
 import React from 'react'
+// @ts-ignore
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './app'
