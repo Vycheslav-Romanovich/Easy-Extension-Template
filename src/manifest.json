@@ -18,6 +18,13 @@
     "service_worker": "./background.dist.js",
     "type": "module"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_end",
+      "js": ["./content.dist.js"]
+    }
+  ],
   "options_page": "./options.html",
   "web_accessible_resources": [
     {

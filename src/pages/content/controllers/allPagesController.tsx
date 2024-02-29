@@ -1,31 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { environment } from '../../../utils/environment'
-import { User } from 'firebase/auth'
 import { RootState } from '../../background/store/slices'
 
 
 const AllPagesController: React.FC = () => {
   const dispatch = useDispatch()
-  // eslint-disable-next-line
-  const user = useSelector<RootState, User>((state) => state.auth.user)
+  const [previousUrl, setPreviousUrl] = useState('');
 
-  useEffect(() => {
-    if (
-      !user &&
-      (window.location.origin === environment.website || window.location.origin === 'http://localhost:3000') &&
-      (window.location.pathname === '/en/welcome/first-step' ||
-        window.location.pathname === '/welcome/first-step' ||
-        window.location.pathname === '/ru/welcome/first-step')
-    ) {
-      localStorage.removeItem('customToken')
+  const observer = new MutationObserver(function(mutations) {
+    if(window.location.origin === environment.website || window.location.origin === 'http://localhost:3000'){
+    if (location.href !== previousUrl) {
+        setPreviousUrl(location.href);
+      }
     }
-  }, [])
+  });
+  const config = {subtree: true, childList: true};
+  observer.observe(document, config);
 
   // Синхронизация аккаунтов с веб-сайтом website -> extension
   useEffect(() => {
     if (
-      !user &&
       (window.location.origin === environment.website || window.location.origin === 'http://localhost:3000') &&
       (window.location.pathname === '/en/welcome/first-step' ||
         window.location.pathname === '/welcome/first-step' ||
@@ -52,29 +47,19 @@ const AllPagesController: React.FC = () => {
       const timer = setInterval(() => {
         const token = localStorage.getItem('customToken')
         if (token) {
-          chrome.runtime.sendMessage({ component: 'updateUserInfo', token: token })
+          chrome.runtime.sendMessage({ component: 'INIT_FIREBASE', token: token })
           localStorage.removeItem('customToken')
           setTimeout(() => clearTimeout(timer), 1500)
+        }
+        if(token === null){
+          clearTimeout(timer);
         }
       }, 500)
       return () => {
         clearTimeout(timer)
       }
     }
-  }, [user])
-
-  useEffect(() => {
-    //remove account
-    if (
-      user &&
-      (window.location.href.includes(environment.website) || window.location.href.includes('http://localhost:3000')) &&
-      localStorage.getItem('removeAccount') === 'true'
-    ) {
-      // dispatch(deleteAccount())
-      localStorage.removeItem('removeAccount')
-    }
-  }, [user])
-
+  }, [previousUrl])
 
 
   return (

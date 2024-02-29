@@ -1,3 +1,5 @@
+
+import './index.css';
 // @ts-ignore
 import { createUIStore } from 'redux-webext'
 import React from 'react'
@@ -6,21 +8,27 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import AllPagesController from './controllers/allPagesController'
 
-import './index.css'
-
-async function initAllPagesController() {
+async function initApp() {
   const store = await createUIStore()
-  const container = document.getElementById('root')
-  // @ts-ignore
-  const root = createRoot(container)
+  const root = document.createElement("div");
+  root.id = "elang_template_extension";
 
-  root.render(
+  document.body.insertBefore(root, document.body.childNodes[0]);
+
+  const rootIntoShadow = document.createElement("div");
+  rootIntoShadow.id = "shadow-root";
+
+  const shadowRoot = root.attachShadow({ mode: "open" });
+  shadowRoot.appendChild(rootIntoShadow);
+
+
+  createRoot(rootIntoShadow).render(
     <Provider store={store}>     
         <AllPagesController />      
     </Provider>
   )
 }
 
-initAllPagesController()
+initApp()
 
 console.log('Content script')

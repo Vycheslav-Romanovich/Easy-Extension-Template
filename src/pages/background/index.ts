@@ -47,17 +47,23 @@ chrome.runtime.onInstalled.addListener(() => {
 //signIn with custome token use website for signUp save token localStorage and 
 //use page(content) read localStorage this token for extension
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  switch (message.component) {
-    case 'updateUserInfo':
-      const auth = getAuth();
-        signInWithCustomToken(auth,message.token)
+  if (message.action === "INIT_FIREBASE") {
+    const auth = getAuth();
+        signInWithCustomToken(auth, message.token)
         .then((userCredential) => {
           const user = userCredential.user
-          const tokenUser = getIdToken(user)
-          // store.dispatch(updateUserInfo(user))
+          getIdToken(user).then((tokenUser)=>
+          {
+            //save tokenUser to store
+          })
         })
-      break
-    default:
-      break
-  }
+	}
+  if (message.action === "REFRESH_TOKEN") {
+    const auth = getAuth();
+    if(auth.currentUser !== null){
+      auth.currentUser.getIdToken(true).then((token)=>{
+        //save RefreshToken to store
+      });
+    }
+	}
 })
