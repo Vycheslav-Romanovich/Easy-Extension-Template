@@ -15,8 +15,7 @@ class YouTube {
   }
 
   public init(): void {
-    // this.injectScript()
-    this.injectCode(chrome.runtime.getURL(`(${this.injection.toString()})()`));
+    this.injectScript()
   }
 
   public async getSubs(langKey: string, learningLang: string, locale: string): Promise<URL | undefined> {
@@ -213,29 +212,6 @@ class YouTube {
       this.subCache[videoId][lang] = urlObject.href
     }
   }
-
-  private nullthrows = (v) => {
-    if (v == null) throw new Error("it's a null");
-    return v;
-  }
-
-  private injectCode(src) {
-    const script = document.createElement('script');
-    // This is why it works!
-    script.src = src;
-    script.onload = function() {
-        console.log("script injected");
-        this.remove();
-    };
-
-    // This script runs before the <head> element is created,
-    // so we add the script to <html> instead.
-    console.log('this.nullthrows(document.head || document.documentElement).appendChild(script)', this.nullthrows(document.head || document.documentElement).appendChild(script));
-    
-    this.nullthrows(document.head || document.documentElement).appendChild(script);
-  }
-
-  
 
   private injectScript(): void {
     const sc = document.createElement('script')

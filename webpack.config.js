@@ -93,6 +93,14 @@ let ExtensionConfig = Object.assign({}, config, {
         to: __dirname + '/extension/dist/content.css',
       },
       {
+        from: './content/services/youtubeScript.js',
+        to: __dirname + '/extension/dist/youtubeScript.js',
+      },
+      {
+        from: './content/services/netflixScript.js',
+        to: __dirname + '/extension/dist/netflixScript.js',
+      },
+      {
         from: './common/styles/reset.css',
         to: __dirname + '/extension/dist/reset.css',
       },

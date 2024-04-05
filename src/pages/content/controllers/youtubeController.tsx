@@ -114,6 +114,24 @@ const YoutubeController: React.FC = () => {
 
   const useForceUpdateFn = useForceUpdate()
 
+  const nullthrows = (v: HTMLElement) => {
+    if (v == null) throw new Error("it's a null");
+    return v;
+}
+
+function injectCode(src: string) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = function() {
+      //@ts-ignore
+        this.remove();
+    };
+
+    // This script runs before the <head> element is created,
+    // so we add the script to <html> instead.
+    nullthrows(document.head || document.documentElement).appendChild(script);
+}
+
   /*if (!loadSubtitlesWindow) {
     const youTubeSubtitlesWindow = document.querySelector('[target-id="engagement-panel-searchable-transcript"]')
     if (youTubeSubtitlesWindow) {
@@ -371,6 +389,9 @@ const YoutubeController: React.FC = () => {
 
   //add event in window for get subtitles
   useEffect(() => {
+    //injectScriptPlayer
+    injectCode(chrome.runtime.getURL('/youtubeScript.js'));
+
     document.querySelector('html')?.setAttribute('id', 'youtube')
     window.addEventListener('eLangChangeWindowSize', eventHandler)
     const timerForVideoId = setInterval(timerHandler, 500)
@@ -402,46 +423,8 @@ const YoutubeController: React.FC = () => {
     }
 
     // youTube.init()
-    function injection () {
-      window.setInterval(() => {
-        // eslint-disable-next-line
-        const player: any = document.getElementById('movie_player')
-        const subsToggleElement = document.querySelector('.ytp-subtitles-button')
-  
-        if (player) {
-          if (!window.isLoaded) {
-            window.isLoaded = true
-  
-            window.dispatchEvent(new CustomEvent('eLangSubsVideoReady'))
-            window.dispatchEvent(new CustomEvent('eLangSubsRenderSettings'))
-  
-            if (subsToggleElement && subsToggleElement.getAttribute('aria-pressed') === 'false') {
-              player.toggleSubtitles()
-  
-            } else {
-              window.dispatchEvent(new CustomEvent('eLangSubsChanged', { detail: '' }))
-            }
-          }
-        } else {
-          window.isLoaded = false
-        }
-      }, 500)
-      ;((open) => {
-        XMLHttpRequest.prototype.open = function (method: string, url: string) {
-          if (url.match(/^http/g) !== null) {
-            const urlObject = new URL(url)
-            if (urlObject.pathname === '/api/timedtext') {
-              window.subtitlesEnabled = true
-              const lang = urlObject.searchParams.get('lang') || urlObject.searchParams.get('tlang')
-              window.dispatchEvent(new CustomEvent('eLang_data', { detail: urlObject.href }))
-              window.dispatchEvent(new CustomEvent('eLangSubsChanged', { detail: lang }))
-            }
-          }
-          open.call(this, method, url, true)
-        }
-      })(XMLHttpRequest.prototype.open)
-    }
-    injection()
+    // injectScript()
+    
 
     setSubShowObserver(
       new MutationObserver((mutationsList: MutationRecord[]) => {

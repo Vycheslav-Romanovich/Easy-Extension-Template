@@ -81,6 +81,25 @@ const NetflixController: React.FC = () => {
 
   const UseForceUpdateFn = useForceUpdate()
 
+  const nullthrows = (v: HTMLElement) => {
+    if (v == null) throw new Error("it's a null");
+    return v;
+}
+
+function injectCode(src: string) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = function() {
+      console.log('Inject srcipt Netflix');
+      //@ts-ignore
+        this.remove();
+    };
+
+    // This script runs before the <head> element is created,
+    // so we add the script to <html> instead.
+    nullthrows(document.head || document.documentElement).appendChild(script);
+}
+
   const timerHandler = () => {
     setVideoId(netflix.getMoveId())
 
@@ -181,6 +200,8 @@ const NetflixController: React.FC = () => {
 
   //add event in window for get subtitles
   useEffect(() => {
+    //injectScriptPlayer
+    injectCode(chrome.runtime.getURL('/netflixScript.js'));
     document.querySelector('html')?.setAttribute('id', 'netflix')
 
     window.addEventListener('elangSubsSubtitlesChanged', addElements)
@@ -212,7 +233,7 @@ const NetflixController: React.FC = () => {
       })
     }
 
-    netflix.init()
+    // netflix.init()
 
     setFocusObserver(
       new MutationObserver((mutationsList: MutationRecord[]) => {

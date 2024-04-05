@@ -21,6 +21,12 @@
       "css": ["./tailwind.dist.css"]
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "youtubeScript.js", "netflixScript.js" ],
+      "matches": [ "https://*/*" ]
+    }
+  ],
   "options_page": "./options.html",
   "icons": {
     "16": "./assets/icons/icon16.png",
