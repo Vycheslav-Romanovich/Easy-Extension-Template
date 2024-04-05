@@ -1,0 +1,121 @@
+.eLang-loader-container {
+  width: 130px;
+  height: 41px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: relative;
+}
+.eLang-loader-arrow {
+  position: absolute;
+  bottom: -11px;
+  color: #fff;
+  left: calc(50% - 15px);
+}
+.eLang-revert-arrow {
+  top: -11px;
+  transform: rotate(180deg);
+}
+.eLang-loader-container-dark {
+  background-color: #262835;
+}
+.eLang-loader-arrow-dark {
+  color: #262835;
+}
+.eLang-loader {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  -webkit-animation: loading 0.45s 0.15s ease alternate infinite;
+  animation: loading 0.45s 0.15s ease alternate infinite;
+  margin: 0 auto;
+}
+
+.eLang-loader:after,
+.eLang-loader:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: loading 0.45s ease alternate infinite;
+  -webkit-animation: loading 0.45s ease alternate infinite;
+}
+
+.eLang-loader-dark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+
+  -webkit-animation: loading-dark 0.45s 0.15s ease alternate infinite;
+  animation: loading-dark 0.45s 0.15s ease alternate infinite;
+  margin: 0 auto;
+}
+
+.eLang-loader-dark:after,
+.eLang-loader-dark:before {
+  content: '';
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: loading-dark 0.45s ease alternate infinite;
+  -webkit-animation: loading-dark 0.45s ease alternate infinite;
+}
+
+.eLang-loader:before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+.eLang-loader:after {
+  right: -20px;
+  animation-delay: 0.4s;
+}
+
+.eLang-loader-dark:before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+.eLang-loader-dark:after {
+  right: -20px;
+  animation-delay: 0.4s;
+}
+
+@keyframes loading {
+  0% {
+    box-shadow: 0 15px 0 -15px rgba(79, 110, 253, 1);
+  }
+  100% {
+    box-shadow: 0 15px 0 rgba(79, 110, 253, 1);
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    box-shadow: 0 15px 0 -15px rgba(79, 110, 253, 1);
+  }
+  100% {
+    box-shadow: 0 15px 0 rgba(79, 110, 253, 1);
+  }
+}
+@keyframes loading-dark {
+  0% {
+    box-shadow: 0 15px 0 -15px rgba(115, 139, 251, 1);
+  }
+  100% {
+    box-shadow: 0 15px 0 rgba(115, 139, 251, 1);
+  }
+}
+
+@-webkit-keyframes loading-dark {
+  0% {
+    box-shadow: 0 15px 0 -15px rgba(115, 139, 251, 1);
+  }
+  100% {
+    box-shadow: 0 15px 0 rgba(115, 139, 251, 1);
+  }
+}

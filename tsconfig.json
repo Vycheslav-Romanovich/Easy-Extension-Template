@@ -1,15 +1,7 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "es6",
-      "es2019",
-      "dom.iterable",
-      "scripthost",
-      "esnext.array"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,10 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "custom.d.ts"
-  ],
+  "include": ["src", "custom.d.ts"],
+  "exclude": ["node_modules"],
 }

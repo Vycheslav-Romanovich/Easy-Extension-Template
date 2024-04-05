@@ -1,36 +1,235 @@
 // @ts-ignore
 import { createBackgroundStore } from 'redux-webext'
-// @ts-ignore
+import { applyMiddleware, createStore } from 'redux'
+import {
+  DELETE_ACCOUNT,
+  SET_ALWAYS_SHOW_TRANSLATION_ON_YT,
+  SET_ALWAYS_SHOW_TRANSLATION_ON_NETFLIX,
+  SET_AUTO_PAUSE,
+  SET_EXTENSION_SHOWN,
+  SET_LEARNING_LANG,
+  SET_LOCAL_LANG,
+  SET_SEARCH_WITH_SUBTITLES,
+  SET_SUBTITLE_COLOR_ON_YT,
+  SET_SUBTITLE_COLOR_ON_NETFLIX,
+  SET_SUBTITLE_FONT_SIZE_ON_YT,
+  SET_SUBTITLE_FONT_SIZE_ON_NETFLIX,
+  SIGN_OUT,
+  SET_OFF_EXTENSION,
+  SET_BACKGROUND_SUB_ON_YT,
+  SET_BACKGROUND_SUB_ON_NETFLIX,
+  SET_COUNT_OF_NEW_WORDS_AT_VOCABULARY,
+  SET_SUBS_SHOWN_0N_NETFLIX,
+  SET_DARK_MODE_IN_YOUTUBE,
+  SET_POSITION_ON_BOARDING,
+  SET_NETFLIX_FOCUS,
+  SET_FOCUS_YT,
+  SET_NETFLIX_SUBS_LINKS,
+  SHOW_TARGET_LANUAGES,
+  SET_YOUTUBE_LANG_KEYS,
+  SET_TEXT_LOCAL_LANG,
+  SET_SUBS_SHOWN_ON_YT,
+  SET_FULLSCREEN_ON_NETFLIX,
+  SET_VIDEO_WAS_PAUSED,
+  SET_SERVICE_VOCABULARY_LENGTH,
+  SET_FREE_DOUBLE_SUBS,
+  SET_FREE_TRANSLATED,
+  SET_TRANSLATE_LANG_NAME,
+  SET_INTERFACE_LANG,
+  SET_CLOSE_POPUP_STATE,
+  SET_MYWORDS_POPUP_STATE,
+  UPDATE_SETTINGS_ACCOUNT,
+  CHECK_MYWORDS_INSTALL,
+  SET_SETTINGS_YOUTUBE_SHOWN,
+  SET_EXPAND_CAPTIONS_WRAPPER_ON_YT,
+  SET_BACKGROUND_SUB_ON_COURSERA,
+  SET_SUBTITLE_FONT_SIZE_ON_COURSERA,
+  SET_SUBTITLE_COLOR_ON_CURSORA,
+  SET_ALWAYS_SHOW_TRANSLATION_ON_COURSERA,
+  SET_COURSERA_FOCUS,
+  SET_SUBS_SHOWN_0N_COURSERA,
+  SET_COURSERA_SUBS_LINKS,
+  SET_COURSERA_VIDEO_ID,
+  SET_LANGUAGES_ERROR,
+  SET_TRANSALTE_FROM_VIDEO,
+  SET_TRANSLATE_HISTORY,
+  SET_PRACTICE_ROUND,
+  SET_IS_FINISHED_PRACTICE,
+  SET_OPEN_PRACTISE,
+  SET_PRACTICE_GAME_WORDS,
+  GET_WORDS_FROM_DICTIONARY,
+  GET_PHRASES_FROM_DICTIONARY,
+  SET_PRACTICE_TRANSLATE_HISTORY,
+  SET_SERVICE_ACTIVE_TAB,
+  SET_WORDS_TO_PRACTICE,
+  REMOVE_WORDS_TO_PRACTICE,
+  CLEAR_WORDS_TO_PRACTICE,
+  SET_RANDOM_AB,
+  SET_LAST_TRANSLATED_WORD,
+} from '../../../constants/constants'
+import reducer from './reducers'
+import thunkMiddleware from 'redux-thunk'
+import {
+  deleteAccount,
+  setFreeDoubleSubs,
+  setFreeTranslated,
+  setLastTranslatedWord,
+  signOutStore,
+} from './actions/authActions'
+import { 
+  setNetflixSubsLinks, 
+  setVideoWasPaused, 
+  setYoutubeLangKeys,
+  setTranlateSubsLangName,
+  setClosePopupState,
+  setCourseraSubsLinks,
+  setCourseraVideoId,
+  setVideoWordsTranslate,
+  setPracticeRound,
+  setIsFinishedPractice,
+  setPracticeGameWords,
+  setActiveServiceTab
+} from './actions/videoActions'
+import {
+  setAlwaysShowTranslationOnYt,
+  setAlwaysShowTranslationOnNetflix,
+  setAutoPause,
+  setExtensionShown,
+  setLearningLang,
+  setLocalLang,
+  setSearchWithSubtitles,
+  setSubtitleColorOnYt,
+  setSubtitleColorOnNetflix,
+  setSubtitleFontSizeOnYt,
+  setSubtitleFontSizeOnNetflix,
+  setBackgroundSubOnYt,
+  setBackgroundSubOnNetflix,
+  setOffExtension,
+  setSubsShowOnNetflix,
+  setDarkModeInYoutube,
+  setPositionOnBoarding,
+  setIsNetflixVideoHasFocus,
+  setIsFocusOnYt,
+  setShowTargetLanguages,
+  setTextLocalLang,
+  setSubsShowOnYt,
+  setFullScreenOnNetflix,
+  setInterfaceLang,
+  setGamePopupShowed,
+  updateSettingsAccount,
+  checkMyWordsInstall,
+  setSettingsShown,
+  setExpandCaptionsWrapperParametersOnYt,
+  setBackgroundSubOnCoursera,
+  setSubtitleFontSizeOnCoursera,
+  setSubtitleColorOnCousera,
+  setAlwaysShowTranslationOnCoursera,
+  setIsCourseraVideoHasFocus,
+  setSubsShowOnCoursera,
+  setLangErrors,
+  setPracticeTranslateHistory,
+  setOpenPractise,
+  setTranslateHistory,
+  setRandomAB,
+} from './actions/settingsActions'
+import {
+  setCountOfNewWordsAtVocabulary,
+  setServiceVocabylaryLength,
+  getWordsFromDictionary,
+  getPhrasesFromDictionary,
+  setWordsToPractice,
+  removeWordsToPractice,
+  clearWordsToPractice,
+} from './actions/vocabularyActions'
+//@ts-ignore
 import createChromeStorage from 'redux-persist-chrome-storage'
-import { createMigrate, persistReducer, persistStore } from 'redux-persist'
-import reducer, { mappings } from './slices'
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import migrations from './migrations'
+import { persistReducer } from 'redux-persist'
+// import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-const storage = createChromeStorage(chrome, 'sync')
+const storage = createChromeStorage(chrome, 'local')
 
-const reducerConfig = {
+const persistConfig = {
   key: 'root',
-  storage: storage,
-  version: 1,
-  migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),
+  storage,
 }
 
-const persistedRootReducer = persistReducer(reducerConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer)
 
-// Using configureStore from RTK
-const store1 = configureStore({
-  reducer: persistedRootReducer,
-  middleware: getDefaultMiddleware({
-    thunk: true,
-    serializableCheck: false,
-  }),
+const store = createStore(persistedReducer, applyMiddleware(thunkMiddleware))
+
+export default createBackgroundStore({
+  store,
+  actions: {
+    [SIGN_OUT]: signOutStore,
+    [DELETE_ACCOUNT]: deleteAccount,
+    [SET_FREE_DOUBLE_SUBS]: setFreeDoubleSubs,
+    [SET_FREE_TRANSLATED]: setFreeTranslated,
+    [SET_LAST_TRANSLATED_WORD]: setLastTranslatedWord,
+
+    [SET_SUBS_SHOWN_0N_NETFLIX]: setSubsShowOnNetflix,
+    [SET_EXTENSION_SHOWN]: setExtensionShown,
+    [SET_SEARCH_WITH_SUBTITLES]: setSearchWithSubtitles,
+    [SET_BACKGROUND_SUB_ON_YT]: setBackgroundSubOnYt,
+    [SET_BACKGROUND_SUB_ON_NETFLIX]: setBackgroundSubOnNetflix,
+    [SET_NETFLIX_SUBS_LINKS]: setNetflixSubsLinks,
+    [SET_YOUTUBE_LANG_KEYS]: setYoutubeLangKeys,
+
+    [SET_TRANSLATE_LANG_NAME]: setTranlateSubsLangName,
+    [SET_VIDEO_WAS_PAUSED]: setVideoWasPaused,
+    [SET_LEARNING_LANG]: setLearningLang,
+    [SET_LOCAL_LANG]: setLocalLang,
+    [SET_AUTO_PAUSE]: setAutoPause,
+    [SET_INTERFACE_LANG]: setInterfaceLang,
+    [SET_SUBTITLE_FONT_SIZE_ON_YT]: setSubtitleFontSizeOnYt,
+    [SET_SUBTITLE_FONT_SIZE_ON_NETFLIX]: setSubtitleFontSizeOnNetflix,
+    [SET_SUBTITLE_COLOR_ON_YT]: setSubtitleColorOnYt,
+    [SET_SUBTITLE_COLOR_ON_NETFLIX]: setSubtitleColorOnNetflix,
+    [SET_ALWAYS_SHOW_TRANSLATION_ON_YT]: setAlwaysShowTranslationOnYt,
+    [SET_ALWAYS_SHOW_TRANSLATION_ON_NETFLIX]: setAlwaysShowTranslationOnNetflix,
+    [SET_TEXT_LOCAL_LANG]: setTextLocalLang,
+    [SET_SUBS_SHOWN_ON_YT]: setSubsShowOnYt,
+
+    [SET_COUNT_OF_NEW_WORDS_AT_VOCABULARY]: setCountOfNewWordsAtVocabulary,
+    [SET_SERVICE_VOCABULARY_LENGTH]: setServiceVocabylaryLength,
+    [SET_WORDS_TO_PRACTICE]: setWordsToPractice,
+    [REMOVE_WORDS_TO_PRACTICE]: removeWordsToPractice,
+    [CLEAR_WORDS_TO_PRACTICE]: clearWordsToPractice,
+
+    [SET_OFF_EXTENSION]: setOffExtension,
+    [SET_DARK_MODE_IN_YOUTUBE]: setDarkModeInYoutube,
+    [SET_POSITION_ON_BOARDING]: setPositionOnBoarding,
+    [SET_NETFLIX_FOCUS]: setIsNetflixVideoHasFocus,
+    [SET_FOCUS_YT]: setIsFocusOnYt,
+    [SHOW_TARGET_LANUAGES]: setShowTargetLanguages,
+    [SET_FULLSCREEN_ON_NETFLIX]: setFullScreenOnNetflix,
+    [SET_CLOSE_POPUP_STATE]: setClosePopupState,
+    [SET_MYWORDS_POPUP_STATE]: setGamePopupShowed,
+    [UPDATE_SETTINGS_ACCOUNT]: updateSettingsAccount,
+    [CHECK_MYWORDS_INSTALL]: checkMyWordsInstall,
+    [SET_SETTINGS_YOUTUBE_SHOWN]: setSettingsShown,
+    [SET_EXPAND_CAPTIONS_WRAPPER_ON_YT]: setExpandCaptionsWrapperParametersOnYt,
+
+    [SET_BACKGROUND_SUB_ON_COURSERA]: setBackgroundSubOnCoursera,
+    [SET_SUBTITLE_FONT_SIZE_ON_COURSERA]: setSubtitleFontSizeOnCoursera,
+    [SET_SUBTITLE_COLOR_ON_CURSORA]: setSubtitleColorOnCousera,
+    [SET_ALWAYS_SHOW_TRANSLATION_ON_COURSERA]: setAlwaysShowTranslationOnCoursera,
+    [SET_COURSERA_FOCUS]: setIsCourseraVideoHasFocus,
+    [SET_SUBS_SHOWN_0N_COURSERA]: setSubsShowOnCoursera,
+    [SET_COURSERA_SUBS_LINKS]: setCourseraSubsLinks,
+    [SET_COURSERA_VIDEO_ID]: setCourseraVideoId,
+    [SET_LANGUAGES_ERROR]: setLangErrors,
+    [SET_OPEN_PRACTISE]: setOpenPractise,
+
+    [SET_TRANSALTE_FROM_VIDEO]: setVideoWordsTranslate,
+    [SET_PRACTICE_TRANSLATE_HISTORY]: setPracticeTranslateHistory,
+    [SET_PRACTICE_ROUND]: setPracticeRound,
+    [SET_IS_FINISHED_PRACTICE]: setIsFinishedPractice,
+    [SET_PRACTICE_GAME_WORDS]: setPracticeGameWords,
+
+    [GET_WORDS_FROM_DICTIONARY]: getWordsFromDictionary,
+    [GET_PHRASES_FROM_DICTIONARY]: getPhrasesFromDictionary,
+    [SET_TRANSLATE_HISTORY]: setTranslateHistory,
+    [SET_SERVICE_ACTIVE_TAB]: setActiveServiceTab,
+    [SET_RANDOM_AB]: setRandomAB,
+  },
 })
-
-export const store = createBackgroundStore({
-  store: store1,
-  actions: mappings,
-})
-
-
-export const persistor = persistStore(store1)

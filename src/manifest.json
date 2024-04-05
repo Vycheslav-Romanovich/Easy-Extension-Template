@@ -1,17 +1,12 @@
 {
-  "name": "__MSG_manifest_name__",
-  "version": "1.0.0",
-  "manifest_version": 3,
-  "homepage_url": "https://example.com",
-  "author": "Easy Extension Template",
-  "description": "__MSG_manifest_description__",
+  "name": "__MSG_application_title__",
+  "version": "2.2.60",
+  "description": "__MSG_application_description__",
   "default_locale": "en",
-  "icons": {
-    "128": "./assets/icons/icon128.png"
-  },
+  "manifest_version": 3,
   "action": {
     "default_popup": "./popup.html",
-    "default_title": "Easy Extension Template",
+    "default_title": "__MSG_application_title__",
     "default_icon": "./assets/icons/icon.png"
   },
   "background": {
@@ -22,31 +17,20 @@
     {
       "matches": ["<all_urls>"],
       "run_at": "document_end",
-      "js": ["./content.dist.js"]
+      "js": ["./content.dist.js"],
+      "css": ["./tailwind.dist.css"]
     }
   ],
   "options_page": "./options.html",
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "./options.html"
-      ],
-      "matches": [],
-      "extension_ids": []
-    }
-  ],
-  "permissions": [
-    "storage",
-    "tabs",
-    "activeTab",
-    "scripting"
-  ],
-  "commands": {
-    "_execute_action": {
-      "suggested_key": {
-        "default": "Alt+W",
-        "mac": "Alt+W"
-      }
-    }
+  "icons": {
+    "16": "./assets/icons/icon16.png",
+    "48": "./assets/icons/icon48.png",
+    "128": "./assets/icons/icon128.png"
+  },
+  "host_permissions": ["https://easy4learn.com/", "https://elang.app/", "https://elang-app-dev-zehqx.ondigitalocean.app/", "<all_urls>"],
+  "permissions": ["tabs", "notifications", "storage", "activeTab", "scripting"],
+  "options_ui": {
+    "page": "./options.html",
+    "open_in_tab": true
   }
 }

@@ -1,40 +1,34 @@
 import LocalizedStrings from 'react-localization'
-// @ts-ignore
-import { createUIStore } from 'redux-webext'
-
 import { ru } from './languages/ru/ru'
 import { en } from './languages/en/en'
-import { RootState } from '../pages/background/store/slices'
+import { de } from './languages/de/de'
+import { es } from './languages/es/es'
+import { tr } from './languages/tr/tr'
+import { pl } from './languages/pl/pl'
+import { ja } from './languages/ja/ja'
+import { ko } from './languages/ko/ko'
+import { uk } from './languages/uk/uk'
+import { fr } from './languages/fr/fr'
+import { zhHans } from './languages/zh-Hans/zh-Hans'
+import { useLanguageContext } from '../context/LanguageContext';
 
-const strings = new LocalizedStrings({
-  en,
-  ru,
-})
-
-const availableLanguages = strings.getAvailableLanguages()
-const interfaceLanguage = strings.getInterfaceLanguage()
-
-if (availableLanguages.indexOf(interfaceLanguage) > -1) {
-  strings.setLanguage(interfaceLanguage)
-} else {
-  strings.setLanguage('en')
+type langsObject<T> = {
+  [key: string]: T
 }
 
-const syncLanguageWithSettings = async () => {
-  const store = await createUIStore()
-  let state: RootState = store.getState()
-  if (state) {
-    strings.setLanguage(state.settings.language)
+export const useTranslation = () => {
+  const { locale } = useLanguageContext()
+  let translation
+  const interfaceLanguage:langsObject<any> = {'ru': ru, 'en': en, 'de': de, 'es': es, 
+  'tr': tr, 'pl': pl, 'ja': ja, 'ko': ko, 'uk': uk, 'fr': fr, 'zhHans': zhHans}
+  const translationLang = interfaceLanguage[locale]
+
+  if(translationLang !== undefined) {
+    translation = new LocalizedStrings({translationLang})
+  } else {
+    translation = new LocalizedStrings({en})
   }
+
+  translation.setLanguage(locale)
+  return translation
 }
-
-// Listen for ui language change from bg
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.msg === 'language_update') {
-    strings.setLanguage(request.data.language)
-  }
-})
-
-syncLanguageWithSettings()
-
-export default strings

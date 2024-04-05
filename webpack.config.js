@@ -32,6 +32,11 @@ let ExtensionConfig = Object.assign({}, config, {
   module: {
     rules: [
       {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto"
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },

@@ -1,34 +1,40 @@
-
-import './index.css';
 // @ts-ignore
 import { createUIStore } from 'redux-webext'
 import React from 'react'
-// @ts-ignore
-import { createRoot } from 'react-dom/client'
+import './index.css'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import YoutubeController from './controllers/youtubeController'
+import NetflixController from './controllers/netflixController'
+import { getService } from '../../utils/url'
 import AllPagesController from './controllers/allPagesController'
+import { LanguageContextProvider } from '../../context/LanguageContext'
+import CourseraController from './controllers/courseraConsroller'
+
 
 async function initApp() {
+  const service = getService()
   const store = await createUIStore()
-  const root = document.createElement("div");
-  root.id = "elang_template_extension";
+  const anchor = document.createElement('div')
+  if (service !== 'netflix') {
+    document.body.appendChild(anchor)
+  }
 
-  document.body.insertBefore(root, document.body.childNodes[0]);
+  anchor.classList.add('elangExtension')
+  
+  ReactDOM.render(
+    <Provider store={store}>
+      <LanguageContextProvider>
+          <AllPagesController />
 
-  const rootIntoShadow = document.createElement("div");
-  rootIntoShadow.id = "shadow-root";
+          {service === 'youtube' && <YoutubeController />}
+          {service === 'netflix' && <NetflixController />}
+          {service === 'coursera' && <CourseraController />}
 
-  const shadowRoot = root.attachShadow({ mode: "open" });
-  shadowRoot.appendChild(rootIntoShadow);
-
-
-  createRoot(rootIntoShadow).render(
-    <Provider store={store}>     
-        <AllPagesController />      
-    </Provider>
+      </LanguageContextProvider>
+    </Provider>,
+    anchor
   )
 }
 
 initApp()
-
-console.log('Content script')

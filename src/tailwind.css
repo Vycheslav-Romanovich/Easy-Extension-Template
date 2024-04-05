@@ -1,25 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/*@tailwind base;*/
-#EasyExtensionTemplate * {
-    font-family: 'Roboto', sans-serif !important;
+li[data-uia*="subtitle-item"] > * {
+  pointer-events: none;
 }
 
-.disable-number-buttons input[type=number]::-webkit-inner-spin-button,
-.disable-number-buttonsinput[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+div[data-uia="selector-audio-subtitle"] ul {
+  max-height: 420px;
+  height: 100%;
+  overflow: scroll;
 }
 
-.smooth-theme-transition,
-.smooth-theme-transition h2,
-.smooth-theme-transition button,
-.smooth-theme-transition button svg,
-.smooth-theme-transition fieldset,
-.smooth-theme-transition label {
-    transition-property: color, background-color, border-color, border !important;
-    transition-duration: 200ms !important;
-    transition-timing-function: ease-in-out !important;
+.active > .line {
+  visibility: visible !important;
+}
+
+.active div .line svg {
+  color: #4f6efd;
+}
+.dark .active div .line svg {
+  color: #738bfb;
+}
+
+.scrollbar-width-yt::-webkit-scrollbar {
+  width: 9px !important;
+}
+.scrollbar-width-popup::-webkit-scrollbar {
+  width: 6px !important;
+}
+.scrollbar-width-smallPopup::-webkit-scrollbar {
+  width: 3px !important;
+}
+.scrollbar-srettings::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+.blurSm {
+  filter: blur(4px);
+}
+
+.blurMl {
+  filter: blur(1.5px);
+}
+
+.logoOpacity {
+  opacity: 0.6;
+}
+
+.logoOpacity:hover {
+  opacity: 1;
+}
+
+.popUpImportant {
+  border-radius: 50%!important;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+a.w-full.active > div > div.flex.flex-col > div.w-full.flex > div {
+  color: #333333;
+}
+a.w-full > div > div.flex.flex-col > div.w-full.flex > div {
+  color: #989898;
+}
+.light > a.w-full.active > div.flex.cursor-pointer > div:nth-child(3) {
+  color: #333333;
+}
+.light > a.w-full > div.flex.cursor-pointer > div:nth-child(3) {
+  color: #989898;
+}
+.dark > a.w-full.active.dark > div > div.flex.flex-col > div.w-full.flex > div {
+  color: white;
+}
+.dark > a.w-full.active.dark > div.flex.cursor-pointer > div:nth-child(3) {
+  color: white;
+}
+.dark > a.w-full.dark > div.flex.cursor-pointer > div:nth-child(3) {
+  color: #989898;
+}
+
+.html5-video-player:not(.ytp-touch-mode) ::-webkit-scrollbar-thumb {
+  border: none !important;
+}
+
+.html5-video-player:not(.ytp-touch-mode) ::-webkit-scrollbar {
+  background-color: transparent !important;
+}
+
+#eLangSubs::-moz-selection {
+  background: rgba(173, 174, 180, 0.43);
+}
+
+#eLangSubs::-webkit-selection {
+  background: rgba(173, 174, 180, 0.43);
+}
+
+#eLangSubs::selection {
+  background: rgba(173, 174, 180, 0.43);
+}
+.eLang-extension-plan-card {
+  transition: 0.15s ease-in;
+  box-shadow: 0px 10px 12px 4.75138px rgba(95, 99, 104, 0.25);
+}
+.eLang-extension-plan-card:hover {
+  box-shadow: 0px 3px 4px 2px rgba(95, 99, 104, 0.25);
+  transform: scale(0.99, 0.99);
+}
+
+.vocabulaty-item:hover > div > .card-arrow {
+  display: block;
+}
+
+.card-arrow {
+  display: none;
+}
+
+/* hidden origin Coursera subs */
+video::-webkit-media-text-track-container {
+  display: none;
+}
+
+.captionsBefore::before {
+  content: '';
+  display: block;
+  width: 188px;
+  height: 1px;
+  margin: 10px auto 5px;
+  background-color: rgba(255, 255, 255, 0.17);
+}
+
+.rotate {
+  transform: rotate(90deg)
 }
 
 @tailwind components;

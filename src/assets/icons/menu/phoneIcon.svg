@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_13141_83153)">
+<path d="M8.75 0C7.82174 0 6.9315 0.368749 6.27513 1.02513C5.61875 1.6815 5.25 2.57174 5.25 3.5V24.5C5.25 25.4283 5.61875 26.3185 6.27513 26.9749C6.9315 27.6312 7.82174 28 8.75 28H19.25C20.1783 28 21.0685 27.6312 21.7249 26.9749C22.3813 26.3185 22.75 25.4283 22.75 24.5V3.5C22.75 2.57174 22.3813 1.6815 21.7249 1.02513C21.0685 0.368749 20.1783 0 19.25 0L8.75 0Z" fill="currentColor"/>
+<rect x="7.20455" y="16.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="7.20455" y="6.20455" width="13.5909" height="1.59091" rx="0.295455" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="17.2045" y="21.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="12.2045" y="21.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="7.20455" y="21.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="12.2045" y="16.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+<rect x="17.2045" y="16.2045" width="3.59091" height="3.59091" rx="0.613636" fill="#F9FAFB" stroke="#F9FAFB" stroke-width="0.409091"/>
+</g>
+<defs>
+<clipPath id="clip0_13141_83153">
+<rect width="28" height="28" fill="white"/>
+</clipPath>
+</defs>
+</svg>
