@@ -1,4 +1,3 @@
-() => {
   const parseMock = JSON.parse
   const stringifyMock = JSON.stringify
 
@@ -81,4 +80,3 @@
       window.currentLanguage = null
     }
   }, 500)
-}
