@@ -316,7 +316,7 @@ const AllPagesController: React.FC = () => {
     }
     //@ts-ignore
     if (
-      (popup && wrapper && wrapper.children[0].tagName !== 'svg') ||
+      (popup && wrapper && wrapper.children[0]?.tagName !== 'svg') ||
       document.querySelector('#eLangLoading') ||
       //@ts-ignore
       event.target.parentElement !== logo
